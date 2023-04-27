@@ -21,6 +21,8 @@ class Field(Beetle):
                     self.field[j][i] = self.cell_type_none
         self.field[self.beetle_position_x][self.beetle_position_y] = \
             self.cell_type_beetle
+        for i in range(1, 5):
+            self.field[4][i] = self.cell_type_wall
         for e in self.field:
             print(e)
 
