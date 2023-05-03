@@ -1,5 +1,6 @@
 from parametrs import *
 from beetle import Beetle
+from random import choice
 
 
 class Field(Beetle):
@@ -11,7 +12,13 @@ class Field(Beetle):
         self.cell_type_wall = -1
         self.field = [[self.cell_type_none for _ in range(self.field_size_x)
                        ] for _ in range(self.field_size_y)]
-
+    def add_object(self, obj):
+        while True:
+            j = choice(range(len(self.field)))
+            i = choice(range(len(self.field[j])))
+            if self.field[j][i] == self.cell_type_none:
+                self.field[j][i] = obj
+                break
     def clear_field(self):
         for i in range(self.field_size_y):
             for j in range(self.field_size_x):
@@ -21,8 +28,9 @@ class Field(Beetle):
                     self.field[j][i] = self.cell_type_none
         self.field[self.beetle_position_x][self.beetle_position_y] = \
             self.cell_type_beetle
-        for i in range(1, 5):
-            self.field[4][i] = self.cell_type_wall
+        for i in range(10):
+            self.add_object(self.cell_type_wall)
+        self.add_object(self.cell_type_beetle)
         for e in self.field:
             print(e)
 
