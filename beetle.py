@@ -11,6 +11,7 @@ class Beetle:
         self.beetle_direction_up = 3
         self.beetle_direction_down = 4
         self.beetle_direction = self.beetle_direction_up
+        self.pause = False
 
     def make_move(self):
         match self.beetle_direction:
@@ -18,8 +19,11 @@ class Beetle:
                 self.beetle_position_y -= 1
                 if self.beetle_position_y - 1 == 0:
                     self.beetle_direction = self.beetle_direction_right
-                    self.beetle_image = \
-                        pygame.transform.rotate(self.beetle_image, -90)
+                    self.beetle_image = pygame.transform.rotate(self.beetle_image, -90)
+                else:
+                    if self.field[self.beetle_position_x][self.beetle_position_y - 1] == self.cell_type_wall:
+                        self.pause = True
+
             case self.beetle_direction_right:
                 self.beetle_position_x += 1
                 if self.beetle_position_x + 1 == cell_count_x - 1:
@@ -27,29 +31,25 @@ class Beetle:
                     self.beetle_image = pygame.transform.rotate(self.beetle_image, -90)
                 else:
                     if self.field[self.beetle_position_x + 1][self.beetle_position_y] == self.cell_type_wall:
-                        self.beetle_direction = self.beetle_direction_down
-                        self.beetle_image = pygame.transform.rotate(self.beetle_image, -90)
-                    else:
-                        if self.field[self.beetle_position_x][self.beetle_position_y - 1] != self.cell_type_wall:
-                            self.beetle_direction = self.beetle_direction_up
-                            self.beetle_image = pygame.transform.rotate(self.beetle_image, 90)
+                        self.pause = True
 
             case self.beetle_direction_down:
                 self.beetle_position_y += 1
                 if self.beetle_position_y + 1 == cell_count_y - 1:
                     self.beetle_direction = self.beetle_direction_left
-                    self.beetle_image = \
-                        pygame.transform.rotate(self.beetle_image, -90)
+                    self.beetle_image = pygame.transform.rotate(self.beetle_image, -90)
                 else:
-                    if self.field[self.beetle_position_x + 1][self.beetle_position_y] != self.cell_type_wall:
-                        self.beetle_direction = self.beetle_direction_right
-                        self.beetle_image = pygame.transform.rotate(self.beetle_image, 90)
+                    if self.field[self.beetle_position_x][self.beetle_position_y + 1] == self.cell_type_wall:
+                        self.pause = True
+
             case self.beetle_direction_left:
                 self.beetle_position_x -= 1
                 if self.beetle_position_x - 1 == 0:
                     self.beetle_direction = self.beetle_direction_up
-                    self.beetle_image = \
-                        pygame.transform.rotate(self.beetle_image, -90)
+                    self.beetle_image = pygame.transform.rotate(self.beetle_image, -90)
+                else:
+                    if self.field[self.beetle_position_x - 1][self.beetle_position_y] == self.cell_type_wall:
+                        self.pause = True
 
 
         for i in range(cell_count_x):

@@ -29,6 +29,7 @@ class Graphics(Field):
         while True:
             self.draw_graphics()
             pygame.display.flip()
+
             self.make_move()
             self.check_events()
             self.window.fill(field_color)
