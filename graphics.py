@@ -2,6 +2,7 @@ import pygame
 from parametrs import *
 from field import Field
 import sys
+from time import sleep
 
 
 class Graphics(Field):
@@ -32,7 +33,9 @@ class Graphics(Field):
         while True:
             self.draw_graphics()
             pygame.display.flip()
-            self.make_move()
+            if self.make_move():
+                sleep(2)
+                exit()
             self.check_events()
             self.window.fill(field_color)
             self.timer.tick(self.fps)

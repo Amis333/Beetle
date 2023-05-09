@@ -1,4 +1,3 @@
-from parametrs import exit_not_found, exit_find
 from random import randint
 import pygame
 
@@ -16,13 +15,12 @@ class Beetle:
         self.last_beetle_direction = self.beetle_direction
 
     def make_move(self):
-        if len(self.path) == 0:
-            exit_not_found = True
-
         if self.step < len(self.path):
             self.field[self.path[self.step][0]][self.path[self.step][1]] = self.cell_type_beetle
             self.field[self.path[self.step - 1][0]][self.path[self.step - 1][1]] = self.cell_type_none
             self.step += 1
+        else:
+            return True
         self.last_beetle_direction = self.beetle_direction
         if self.step < len(self.path):
             if self.path[self.step][0] < self.path[self.step - 1][0]:
