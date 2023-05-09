@@ -25,8 +25,8 @@ class Field(Beetle):
                 break
 
     def add_exit(self):
-        exit_x = randint(1, 13)
-        exit_y = randint(1, 13)
+        exit_x = randint(1, 18)
+        exit_y = randint(1, 18)
         if exit_x < exit_y:
             exit_x = 0
             self.field[exit_x][exit_y] = self.cell_type_none
@@ -43,15 +43,15 @@ class Field(Beetle):
                     self.field[j][i] = self.cell_type_none
         self.add_exit()
 
-        for i in range(20):
+        for i in range(randint(20, 50)):
             self.add_object(self.cell_type_wall)
         while True:
             if self.field[self.beetle_position_x][self.beetle_position_y] != self.cell_type_wall:
                 self.path = self.find_exit()
                 break
             else:
-                self.beetle_position_x = randint(2, 13)
-                self.beetle_position_y = randint(2, 13)
+                self.beetle_position_x = randint(2, 18)
+                self.beetle_position_y = randint(2, 18)
 
     def find_exit(self):
         queue = [(self.beetle_position_x, self.beetle_position_y, [])]

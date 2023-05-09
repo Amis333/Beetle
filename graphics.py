@@ -18,7 +18,8 @@ class Graphics(Field):
         self.beetle_rect = self.beetle_image.get_rect()
         pygame.display.set_caption('Beetle')
         self.timer = pygame.time.Clock()
-        self.fps = 8
+        self.fps = 6
+        pygame.display.set_icon(self.beetle_image)
 
     def check_events(self):
         for event in pygame.event.get():
@@ -27,17 +28,19 @@ class Graphics(Field):
 
     def algorithm_cycle(self):
         self.clear_field()
-        print(self.path)
         self.step = 0
 
         while True:
+            if not self.exit_found:
+                self.make_move()
+            else:
+                sleep(1)
+                from menu import open_final_menu
+                open_final_menu()
+            self.window.fill(field_color)
             self.draw_graphics()
             pygame.display.flip()
-            if self.make_move():
-                sleep(2)
-                exit()
             self.check_events()
-            self.window.fill(field_color)
             self.timer.tick(self.fps)
 
     def draw_graphics(self):
