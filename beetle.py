@@ -58,3 +58,4 @@ class Beetle:
                     self.field[i][j] -= 1
         self.field[self.beetle_position_x][self.beetle_position_y] = self.cell_type_beetle
 
+

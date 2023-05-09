@@ -13,6 +13,7 @@ class Field(Beetle):
         self.field = [[self.cell_type_none for _ in range(self.field_size_x)
                        ] for _ in range(self.field_size_y)]
     def add_object(self, obj):
+        self.field[14][13] = 0 # нормальное добавление выхода(случайное)
         while True:
             j = choice(range(len(self.field)))
             i = choice(range(len(self.field[j])))
@@ -34,3 +35,19 @@ class Field(Beetle):
         for e in self.field:
             print(e)
 
+    def find_exit(self):
+        queue = [(5, 5, [])] # queue должен получать начальные координаты, а не захардкоженные
+        visited = set()
+        while queue:
+            x, y, path = queue.pop(0)
+            if (x, y) in visited:
+                continue
+            visited.add((x, y))
+            if self.field[x][y] == 0:
+                if x == 0 or x == len(self.field) - 1 or y == 0 or y == len(self.field[0]) - 1:
+                    return path + [(x, y)]
+                queue.append((x + 1, y, path + [(x, y)]))
+                queue.append((x - 1, y, path + [(x, y)]))
+                queue.append((x, y + 1, path + [(x, y)]))
+                queue.append((x, y - 1, path + [(x, y)]))
+        return None
