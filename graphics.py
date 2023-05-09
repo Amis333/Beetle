@@ -24,16 +24,19 @@ class Graphics(Field):
             if event.type == pygame.QUIT:
                 sys.exit(pygame.quit())
 
+
     def algorithm_cycle(self):
         self.clear_field()
+        path = self.find_exit() # путь должен передаться в отрисовку графики
+        print(path)
         while True:
             self.draw_graphics()
             pygame.display.flip()
-
-            self.make_move()
+            # self.make_move()
             self.check_events()
             self.window.fill(field_color)
             self.timer.tick(self.fps)
+
 
     def draw_graphics(self):
         for i in range(cell_count_y):
@@ -51,7 +54,3 @@ class Graphics(Field):
                         self.beetle_rect.x = j * cell_size
                         self.beetle_rect.y = i * cell_size
                         self.window.blit(self.beetle_image, self.beetle_rect)
-
-
-
-
