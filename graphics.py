@@ -2,6 +2,7 @@ import pygame
 from parametrs import *
 from field import Field
 import sys
+from time import sleep
 
 
 class Graphics(Field):
@@ -17,26 +18,30 @@ class Graphics(Field):
         self.beetle_rect = self.beetle_image.get_rect()
         pygame.display.set_caption('Beetle')
         self.timer = pygame.time.Clock()
-        self.fps = 8
+        self.fps = 6
+        pygame.display.set_icon(self.beetle_image)
 
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit(pygame.quit())
 
-
     def algorithm_cycle(self):
         self.clear_field()
-        path = self.find_exit() # путь должен передаться в отрисовку графики
-        print(path)
+        self.step = 0
+
         while True:
+            if not self.exit_found:
+                self.make_move()
+            else:
+                sleep(1)
+                from menu import open_final_menu
+                open_final_menu()
+            self.window.fill(field_color)
             self.draw_graphics()
             pygame.display.flip()
-            # self.make_move()
             self.check_events()
-            self.window.fill(field_color)
             self.timer.tick(self.fps)
-
 
     def draw_graphics(self):
         for i in range(cell_count_y):
